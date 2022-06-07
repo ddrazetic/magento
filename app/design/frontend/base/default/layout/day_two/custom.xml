@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout>
+    <default>
+        <reference name="content">
+            <block type="core/text" name="oops">
+                <action method="setText">
+                    <arg>This is some text - custom layout!</arg>
+                </action>
+            </block>
+        </reference>
+    </default>
+    <cool_handle>
+        <block type="core/template" name="some.name"
+               output="toHtml" template="some/template.phtml">
+            <block type="core/text" name="some.otherBlock">
+                <action method="setText">
+                    <argu>Some text for us!</argu>
+                </action>
+            </block>
+
+        </block>
+    </cool_handle>
+    <day_two_render_final>
+        <update handle="cool_handle"/>
+    </day_two_render_final>
+
+
+</layout>

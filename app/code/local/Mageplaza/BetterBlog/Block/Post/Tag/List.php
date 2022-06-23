@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Post Tags list block
  *
@@ -34,10 +35,10 @@ class Mageplaza_BetterBlog_Block_Post_Tag_List extends Mageplaza_BetterBlog_Bloc
     {
         parent::__construct();
         $post = $this->getPost();
-         if ($post) {
-             $this->getTags()->addPostFilter($post->getId());
-             $this->getTags()->unshiftOrder('related_post.position', 'ASC');
-         }
+        if ($post) {
+            $this->getTags()->addPostFilter($post->getId());
+            $this->getTags()->unshiftOrder('related_post.position', 'ASC');
+        }
     }
 
     /**
@@ -59,7 +60,19 @@ class Mageplaza_BetterBlog_Block_Post_Tag_List extends Mageplaza_BetterBlog_Bloc
      * @return Mageplaza_BetterBlog_Model_Post
      * @author Sam
      */
-    public function getPost()
+//    public function getPost()
+//    {
+////        return Mage::registry('current_post');
+//        $postId = Mage::registry('post_id');
+//
+//        $post = Mage::getModel('mageplaza_betterblog/post')
+//            ->setStoreId(Mage::app()->getStore()->getId())
+//            ->load($postId);
+//
+//        return $post;
+//    }
+
+    public function getCurrentPost()
     {
         return Mage::registry('current_post');
     }

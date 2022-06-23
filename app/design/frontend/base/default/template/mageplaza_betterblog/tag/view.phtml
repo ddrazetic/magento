@@ -1,0 +1,6 @@
+<?php $currentTag = $this->getCurrentTag(); ?>
+<a href="<?php echo Mage::getUrl('blog/tag'); ?>">Go Back</a>
+
+<h2 class="name-tag"> <?= $currentTag->getName() ?></h2>
+<p class="description-tag"><?= $currentTag->getDescription() ?></p>
+

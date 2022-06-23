@@ -1,6 +1,7 @@
 <?php
 
-class Mageplaza_BetterBlog_Block_Comment extends Mage_Core_Block_Template {
+class Mageplaza_BetterBlog_Block_Comment extends Mage_Core_Block_Template
+{
 
     public function __construct()
     {
@@ -20,6 +21,10 @@ class Mageplaza_BetterBlog_Block_Comment extends Mage_Core_Block_Template {
         return $this;
     }
 
+    public function getCurrentPost()
+    {
+        return Mage::registry('current_post');
+    }
 
     public function getCommentType()
     {

@@ -1,0 +1,42 @@
+<?php $post = $this->getCurrentPost();
+$categories = $this->getCurrentPost()->getSelectedCategories();
+$imageBaseUrl = $this->getUrl("media/post/image");
+//echo '<pre>', var_dump($post->getViews()), '</pre>';
+
+?>
+
+<a href="<?php echo Mage::getUrl('blog/post'); ?>">Go Back</a>
+<p class="date-text-post"><strong class="strong-post">Created at: </strong><?= $post->getCreatedAt(); ?></p>
+<div class="image-container-post-post">
+    <?php if ($post->getImage()) : ?>
+        <img class="image-post-post" src="<?= $imageBaseUrl . $post->getImage() ?>" alt="post image"/>
+    <?php else: ?>
+        <img class="image-post-post" src="<?= $imageBaseUrl . "no_image/no-image.png" ?>" alt="no image"/>
+    <?php endif; ?>
+</div>
+<h1><?= $post->getPostTitle() ?> </h1>
+<!--<p class="content-text-post"><strong class="strong-post">Entity id: </strong> <? //= $post->getEntityId(); ?></p>-->
+<!--<p class="content-text-post"><strong class="strong-post">URL key: </strong> <? //= $post->getUrlKey(); ?></p>-->
+<p class="content-text-post"><strong class="strong-post">Description: </strong><br><?= $post->getPostExcerpt(); ?>
+</p>
+<p class="content-text-post"><strong class="strong-post">Content: </strong><br><?= $post->getPostContent(); ?></p>
+<div class="gray-line"></div>
+
+<h2>Categories: </h2>
+<div class="post-category-container">
+    <?php foreach ($categories as $category): ?>
+        <a class="link-opacity post-category"
+           href="<?php echo Mage::getUrl('blog/category/view', ['id' => $category->getEntityId()]); ?>">
+            <?= $category->getName() ?>
+        </a>
+
+    <?php endforeach; ?>
+</div>
+
+<?php
+//echo '<pre>', var_dump($this->getCurrentPost()->getMetaTitle()), '</pre>';
+//echo '<pre>', var_dump($this->getCurrentPost()['meta_title'][0]), '</pre>';
+?>
+<?php
+//echo '<pre>', var_dump($this->getCurrentPost()), '</pre>';
+?>

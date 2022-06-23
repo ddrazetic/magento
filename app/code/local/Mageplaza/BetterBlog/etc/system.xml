@@ -260,7 +260,15 @@
                             </depends>
                         </post_same_category_count>
 
-
+                        <post_title_color translate="label">
+                            <label>HEX color for post title</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>color</validate>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </post_title_color>
 
 
                         <rss translate="label">
@@ -296,6 +304,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </meta_keywords>
+
                     </fields>
                 </post>
 
@@ -513,7 +522,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If you want to show recent comments, you should choose Comment Form is Default Comment Form. It cannot show Facebook, Disqus comment.</comment>
+                            <comment>If you want to show recent comments, you should choose Comment Form is Default
+                                Comment Form. It cannot show Facebook, Disqus comment.
+                            </comment>
                         </enable_comment_widget>
 
                         <number_comment translate="label comment">
@@ -558,61 +569,61 @@
 
 
                 <!--<advanced translate="label" module="mageplaza_betterblog">-->
-                    <!--<label>Advanced Configuration</label>-->
-                    <!--<frontend_type>text</frontend_type>-->
-                    <!--<sort_order>50</sort_order>-->
-                    <!--<show_in_default>1</show_in_default>-->
-                    <!--<show_in_website>1</show_in_website>-->
-                    <!--<show_in_store>1</show_in_store>-->
-                    <!--<fields>-->
+                <!--<label>Advanced Configuration</label>-->
+                <!--<frontend_type>text</frontend_type>-->
+                <!--<sort_order>50</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<fields>-->
 
-                        <!--<override_cateogry translate="label">-->
-                            <!--<label>Override Categories</label>-->
-                            <!--<frontend_type>select</frontend_type>-->
-                            <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
-                            <!--<sort_order>10</sort_order>-->
-                            <!--<show_in_default>1</show_in_default>-->
-                            <!--<show_in_website>1</show_in_website>-->
-                            <!--<show_in_store>1</show_in_store>-->
-                            <!--<comment>Save this option before importing</comment>-->
-                        <!--</override_cateogry>-->
+                <!--<override_cateogry translate="label">-->
+                <!--<label>Override Categories</label>-->
+                <!--<frontend_type>select</frontend_type>-->
+                <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                <!--<sort_order>10</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment>Save this option before importing</comment>-->
+                <!--</override_cateogry>-->
 
-                        <!--<override_tag translate="label">-->
-                            <!--<label>Override Tags</label>-->
-                            <!--<frontend_type>select</frontend_type>-->
-                            <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
-                            <!--<sort_order>11</sort_order>-->
-                            <!--<show_in_default>1</show_in_default>-->
-                            <!--<show_in_website>1</show_in_website>-->
-                            <!--<show_in_store>1</show_in_store>-->
-                            <!--<comment>Save this option before importing</comment>-->
+                <!--<override_tag translate="label">-->
+                <!--<label>Override Tags</label>-->
+                <!--<frontend_type>select</frontend_type>-->
+                <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                <!--<sort_order>11</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment>Save this option before importing</comment>-->
 
-                        <!--</override_tag>-->
+                <!--</override_tag>-->
 
-                        <!--<override_post translate="label">-->
-                            <!--<label>Override Posts</label>-->
-                            <!--<frontend_type>select</frontend_type>-->
-                            <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
-                            <!--<sort_order>12</sort_order>-->
-                            <!--<show_in_default>1</show_in_default>-->
-                            <!--<show_in_website>1</show_in_website>-->
-                            <!--<show_in_store>1</show_in_store>-->
-                            <!--<comment>Save this option before importing</comment>-->
-                        <!--</override_post>-->
-
-
-                        <!--<aw translate="label">-->
-                            <!--<label>Import from AW Blog</label>-->
-                            <!--<frontend_model>mageplaza_betterblog/adminhtml_system_config_import_aw</frontend_model>-->
-                            <!--<sort_order>20</sort_order>-->
-                            <!--<show_in_default>1</show_in_default>-->
-                            <!--<show_in_website>0</show_in_website>-->
-                            <!--<show_in_store>0</show_in_store>-->
-
-                        <!--</aw>-->
+                <!--<override_post translate="label">-->
+                <!--<label>Override Posts</label>-->
+                <!--<frontend_type>select</frontend_type>-->
+                <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                <!--<sort_order>12</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment>Save this option before importing</comment>-->
+                <!--</override_post>-->
 
 
-                    <!--</fields>-->
+                <!--<aw translate="label">-->
+                <!--<label>Import from AW Blog</label>-->
+                <!--<frontend_model>mageplaza_betterblog/adminhtml_system_config_import_aw</frontend_model>-->
+                <!--<sort_order>20</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>0</show_in_website>-->
+                <!--<show_in_store>0</show_in_store>-->
+
+                <!--</aw>-->
+
+
+                <!--</fields>-->
                 <!--</advanced>-->
             </groups>
         </mageplaza_betterblog>

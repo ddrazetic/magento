@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Category list block
  *
@@ -33,9 +34,8 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
     {
         parent::_construct();
         $categories = Mage::getResourceModel('mageplaza_betterblog/category_collection')
-                         ->addStoreFilter(Mage::app()->getStore())
-                         ->addFieldToFilter('status', 1);
-        ;
+            ->addStoreFilter(Mage::app()->getStore())
+            ->addFieldToFilter('status', 1);;
         $categories->getSelect()->order('main_table.position');
         $this->setCategories($categories);
     }
@@ -56,7 +56,7 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
                 'page/html_pager',
                 'mageplaza_betterblog.categories.html.pager'
             )
-            ->setCollection($this->getCategories());
+                ->setCollection($this->getCategories());
             $this->setChild('pager', $pager);
             $this->getCategories()->load();
         }
@@ -106,7 +106,7 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
         $storeIds = Mage::getResourceSingleton(
             'mageplaza_betterblog/category'
         )
-        ->lookupStoreIds($category->getId());
+            ->lookupStoreIds($category->getId());
         $validStoreIds = array(0, Mage::app()->getStore()->getId());
         if (!array_intersect($storeIds, $validStoreIds)) {
             return '';
@@ -116,12 +116,12 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
         }
         $children = $category->getChildrenCategories();
         $activeChildren = array();
-        if ($recursion == 0 || $level < $recursion-1) {
+        if ($recursion == 0 || $level < $recursion - 1) {
             foreach ($children as $child) {
                 $childStoreIds = Mage::getResourceSingleton(
                     'mageplaza_betterblog/category'
                 )
-                ->lookupStoreIds($child->getId());
+                    ->lookupStoreIds($child->getId());
                 $validStoreIds = array(0, Mage::app()->getStore()->getId());
                 if (!array_intersect($childStoreIds, $validStoreIds)) {
                     continue;
@@ -132,11 +132,11 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
             }
         }
         $html .= '<li>';
-        $html .= '<a href="'.$category->getCategoryUrl().'">'.$category->getName().'</a>';
+        $html .= '<a href="' . $category->getCategoryUrl() . '">' . $category->getName() . '</a>';
         if (count($activeChildren) > 0) {
             $html .= '<ul>';
             foreach ($children as $child) {
-                $html .= $this->drawCategory($child, $level+1);
+                $html .= $this->drawCategory($child, $level + 1);
             }
             $html .= '</ul>';
         }
@@ -158,4 +158,32 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
         }
         return $this->getData('recursion');
     }
+
+    public function olLiTree($tree, $i)
+    {
+//    if ($i == 1) {
+//        echo '<li>';
+//        echo '<ul>';
+//    }
+        foreach ($tree as $item) {
+            if ($item->hasChildren()) {
+                echo '<li>';
+
+                echo '<a class="inline-block-category" href="' . Mage::getUrl('blog/category/view', ['id' => $item->getEntityId()]) . '">
+                <h2>' . $item->getName() . '</h2>
+</a>';
+                echo '<ul>';
+                $this->olLiTree($item->getChildrenCategories(), 1);
+            } else {
+                echo '<li>', '<a class="inline-block-category" href="' . Mage::getUrl('blog/category/view', ['id' => $item->getEntityId()]) . '">
+                <h2>' . $item->getName() . '</h2>
+</a>', '</li>';
+            }
+        }
+        if ($i == 1) {
+            echo '</ul></li>';
+        }
+        $i = 1;
+    }
+
 }

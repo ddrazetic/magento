@@ -1,0 +1,39 @@
+<?php
+$allPosts = $this->getPosts()->getData();
+$blsa = $this->getPosts();
+$imageBaseUrl = $this->getUrl("media/post/image");
+?>
+    <ul class="most-recent-posts">
+        <?php foreach ($blsa as $post): ?>
+            <li>
+                <h2>
+                    <a href="<?php echo Mage::getUrl('blog/post/view', ['id' => $post->getEntityId()]); ?>"><?= $post->getPostTitle(); ?></a>
+                </h2>
+                <div class="content-post">
+                    <div class="image-container-post">
+                        <a href="<?php echo Mage::getUrl('blog/post/view', ['id' => $post->getEntityId()]); ?>">
+                            <?php if ($post->getImage()) : ?>
+                                <img class="image-post" src="<?= $imageBaseUrl . $post->getImage() ?>"
+                                     alt="post image"/>
+                            <?php else: ?>
+                                <img class="image-post" src="<?= $imageBaseUrl . "no_image/no-image.png" ?>"
+                                     alt="no image"/>
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                    <p><strong class="strong-post">Entity id: </strong> <?= $post->getEntityId(); ?></p>
+                    <p><strong class="strong-post">URL key: </strong> <?= $post->getUrlKey(); ?></p>
+                    <p><strong class="strong-post">Description: </strong><?= substr($post->getPostExcerpt(), 0, 70); ?>
+                        ...
+                    </p>
+                    <p><strong class="strong-post">Content: </strong><?= substr($post->getPostContent(), 0, 70); ?>...
+                    </p>
+                    <p><strong class="strong-post">Created at: </strong><?= $post->getCreatedAt(); ?></p>
+                </div>
+
+            </li>
+            <!--        <li>--><?php //echo '<pre>', var_dump($post->getData()), '</pre>'; ?><!--</li>-->
+        <?php endforeach; ?>
+    </ul>
+
+<?php //echo '<pre>', var_dump($this->getPosts()), '</pre>'; ?>

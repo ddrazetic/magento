@@ -117,6 +117,9 @@
                 <mageplaza_betterblog>
                     <file>mageplaza_betterblog.xml</file>
                 </mageplaza_betterblog>
+                <basket>
+                    <file>picker.xml</file>
+                </basket>
             </updates>
         </layout>
         <translate>

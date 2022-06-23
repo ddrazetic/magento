@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Category front contrller
  *
@@ -25,14 +26,19 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
 {
 
     /**
-      * default action
-      *
-      * @access public
-      * @return void
-      * @author Sam
-      */
-    public function indexAction()
+     * default action
+     *
+     * @access public
+     * @return void
+     * @author Sam
+     */
+
+    public function postAction()
     {
+        $postId = $this->getRequest()->getParam('post_id', 0);
+        Mage::register('post_id', $postId);
+//        echo '<pre>', var_dump($this->getPost()), '</pre>';
+//        echo '<pre>', var_dump(Mage::registry('current_post')), '</pre>';
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
         $this->_initLayoutMessages('customer/session');
@@ -43,14 +49,53 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
                     'home',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Home'),
-                        'link'  => Mage::getUrl(),
+                        'link' => Mage::getUrl(),
                     )
                 );
                 $breadcrumbBlock->addCrumb(
                     'categories',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Categories'),
-                        'link'  => '',
+                        'link' => '',
+                    )
+                );
+            }
+        }
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->addLinkRel('canonical', Mage::helper('mageplaza_betterblog/category')->getCategoriesUrl());
+        }
+        if ($headBlock) {
+            $headBlock->setTitle(Mage::getStoreConfig('mageplaza_betterblog/category/meta_title'));
+            $headBlock->setKeywords(Mage::getStoreConfig('mageplaza_betterblog/category/meta_keywords'));
+            $headBlock->setDescription(Mage::getStoreConfig('mageplaza_betterblog/category/meta_description'));
+        }
+
+        $this->renderLayout();
+    }
+
+    public function indexAction()
+    {
+//        echo "blog/category";
+//        die;
+        $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('checkout/session');
+        if (Mage::helper('mageplaza_betterblog/category')->getUseBreadcrumbs()) {
+            if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+                $breadcrumbBlock->addCrumb(
+                    'home',
+                    array(
+                        'label' => Mage::helper('mageplaza_betterblog')->__('Home'),
+                        'link' => Mage::getUrl(),
+                    )
+                );
+                $breadcrumbBlock->addCrumb(
+                    'categories',
+                    array(
+                        'label' => Mage::helper('mageplaza_betterblog')->__('Categories'),
+                        'link' => '',
                     )
                 );
             }
@@ -76,8 +121,8 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
      */
     protected function _initCategory()
     {
-        $categoryId   = $this->getRequest()->getParam('id', 0);
-        $category     = Mage::getModel('mageplaza_betterblog/category')
+        $categoryId = $this->getRequest()->getParam('id', 0);
+        $category = Mage::getModel('mageplaza_betterblog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($categoryId);
         if (!$category->getId()) {
@@ -95,6 +140,7 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
      * @return void
      * @author Sam
      */
+
     public function viewAction()
     {
         $category = $this->_initCategory();
@@ -106,6 +152,8 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
             $this->_forward('no-route');
             return;
         }
+
+//        echo $category;
         Mage::register('current_category', $category);
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
@@ -119,15 +167,15 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
                 $breadcrumbBlock->addCrumb(
                     'home',
                     array(
-                        'label'    => Mage::helper('mageplaza_betterblog')->__('Home'),
-                        'link'     => Mage::getUrl(),
+                        'label' => Mage::helper('mageplaza_betterblog')->__('Home'),
+                        'link' => Mage::getUrl(),
                     )
                 );
                 $breadcrumbBlock->addCrumb(
                     'posts',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Blog'),
-                        'link'  => Mage::helper('mageplaza_betterblog/post')->getPostsUrl(),
+                        'link' => Mage::helper('mageplaza_betterblog/post')->getPostsUrl(),
                     )
                 );
                 $parents = $category->getParentCategories();
@@ -135,10 +183,10 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
                     if ($parent->getId() != Mage::helper('mageplaza_betterblog/category')->getRootCategoryId() &&
                         $parent->getId() != $category->getId()) {
                         $breadcrumbBlock->addCrumb(
-                            'category-'.$parent->getId(),
+                            'category-' . $parent->getId(),
                             array(
-                                'label'    => $parent->getName(),
-                                'link'    => $link = $parent->getCategoryUrl(),
+                                'label' => $parent->getName(),
+                                'link' => $link = $parent->getCategoryUrl(),
                             )
                         );
                     }
@@ -147,7 +195,7 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
                     'category',
                     array(
                         'label' => $category->getName(),
-                        'link'  => '',
+                        'link' => '',
                     )
                 );
             }

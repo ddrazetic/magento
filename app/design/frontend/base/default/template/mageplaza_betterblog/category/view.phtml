@@ -1,0 +1,25 @@
+<!--<h1>5 Most recent posts:</h1>-->
+<?php
+//echo '<pre>', var_dump($this->getCurrentCategory()), '</pre>';
+$category = $this->getCurrentCategory();
+$childrenCategories = $category->getChildrenCategories();
+?>
+<a href="<?php echo Mage::getUrl('blog/category'); ?>">Go Back</a>
+
+<div class="post-category-max-width">
+    <h2 class="post-category-header"><?= $category->getName() ?></h2>
+    <p> <?= $category->getDescription() ?></p>
+</div>
+<div class="post-category-container">
+    <?php foreach ($childrenCategories as $category): ?>
+        <a class="link-opacity post-category"
+           href="<?php echo Mage::getUrl('blog/category/view', ['id' => $category->getEntityId()]); ?>">
+            <?= $category->getName() ?>
+        </a>
+
+    <?php endforeach; ?>
+</div>
+<?php
+//echo '<pre>', var_dump($childrenCategories->getData()), '</pre>';
+?>
+<!--<h2> --><?php //echo "current: " . $this->getCurrentCategory() ?><!--</h2>-->

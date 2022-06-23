@@ -36,6 +36,11 @@ class Mageplaza_BetterBlog_Block_Post_View extends Mage_Core_Block_Template
         return Mage::registry('current_post');
     }
 
+    public function getMetaTags()
+    {
+        return $this->getCurrentPost()->getMetaKeywords();
+    }
+
     /**
      * get post in same topic
      * @return mixed
@@ -69,15 +74,13 @@ class Mageplaza_BetterBlog_Block_Post_View extends Mage_Core_Block_Template
                     ->setStoreId(Mage::app()->getStore()->getId())
                     ->addAttributeToSelect('*')
                     ->addAttributeToFilter('status', 1)
-                    ->addAttributeToFilter('entity_id',array('neq'=>$currentPost->getId()))
-                ;
+                    ->addAttributeToFilter('entity_id', array('neq' => $currentPost->getId()));
                 $posts->setOrder('post_title', 'asc');
                 $posts->addCategoryFilter($category->getId());
                 $posts->setPageSize($config->getPostConfig('post_same_category_count'));
                 $posts->unshiftOrder('related_category.position', 'ASC');
                 return $posts;
             }
-
 
         }
         return null;

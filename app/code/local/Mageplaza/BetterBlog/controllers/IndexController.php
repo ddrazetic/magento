@@ -1,6 +1,7 @@
 <?php
 
-class Mageplaza_BetterBlog_IndexController extends Mage_Core_Controller_Front_Action{
+class Mageplaza_BetterBlog_IndexController extends Mage_Core_Controller_Front_Action
+{
 
     /**
      * Redirect to main page

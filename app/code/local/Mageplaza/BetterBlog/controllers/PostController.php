@@ -38,6 +38,48 @@ class Mageplaza_BetterBlog_PostController extends Mage_Core_Controller_Front_Act
         $this->_initLayoutMessages('catalog/session');
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
+//        $this->getLayout()->getBlock('head')->setTitle('metatag');
+//        $this->getLayout()->getBlock('head')->setDescription('$description');
+//        $this->getLayout()->getBlock('head')->setKeywords('$keyword');
+        if (Mage::helper('mageplaza_betterblog/post')->getUseBreadcrumbs()) {
+            if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+                $breadcrumbBlock->addCrumb(
+                    'home',
+                    array(
+                        'label' => Mage::helper('mageplaza_betterblog')->__('Home'),
+                        'link' => Mage::getUrl(),
+                    )
+                );
+                $breadcrumbBlock->addCrumb(
+                    'posts',
+                    array(
+                        'label' => Mage::helper('mageplaza_betterblog')->__('Blog'),
+                        'link' => '',
+                    )
+                );
+            }
+        }
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->addLinkRel('canonical', Mage::helper('mageplaza_betterblog/post')->getPostsUrl());
+        }
+        if ($headBlock) {
+            $headBlock->setTitle(Mage::getStoreConfig('mageplaza_betterblog/post/meta_title'));
+            $headBlock->setKeywords(Mage::getStoreConfig('mageplaza_betterblog/post/meta_keywords'));
+            $headBlock->setDescription(Mage::getStoreConfig('mageplaza_betterblog/post/meta_description'));
+        }
+        $this->renderLayout();
+    }
+
+    public function recentAction()
+    {
+        $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('checkout/session');
+//        $this->getLayout()->getBlock('head')->setTitle('metatag');
+//        $this->getLayout()->getBlock('head')->setDescription('$description');
+//        $this->getLayout()->getBlock('head')->setKeywords('$keyword');
         if (Mage::helper('mageplaza_betterblog/post')->getUseBreadcrumbs()) {
             if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
                 $breadcrumbBlock->addCrumb(
@@ -136,7 +178,7 @@ class Mageplaza_BetterBlog_PostController extends Mage_Core_Controller_Front_Act
                         'category-' . $_category->getId(),
                         array(
                             'label' => $_category->getName(),
-                            'link' =>  $_category->getCategoryUrl(),
+                            'link' => $_category->getCategoryUrl(),
                         )
                     );
                     break;
@@ -202,6 +244,10 @@ class Mageplaza_BetterBlog_PostController extends Mage_Core_Controller_Front_Act
      */
     public function commentpostAction()
     {
+//        $this->getRequest()->setPost('title', 'naslov');
+//        $this->getRequest()->setPost('name', 'ime');
+//        $this->getRequest()->setPost('email', Mage::getSingleton('customer/session')->getCustomer()->getData('email'));
+//        $this->getRequest()->setPost('comment', 'comment extra');
         $data = $this->getRequest()->getPost();
         $post = $this->_initPost();
         $session = Mage::getSingleton('core/session');

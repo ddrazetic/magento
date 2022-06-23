@@ -14,6 +14,7 @@
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Post list block
  *
@@ -51,14 +52,14 @@ class Mageplaza_BetterBlog_Block_Post_Recent extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        parent::_prepareLayout();
-        $pager = $this->getLayout()->createBlock(
-            'page/html_pager',
-            'mageplaza_betterblog.post.html.pager'
-        )
-            ->setCollection($this->getPosts());
-        $this->setChild('pager', $pager);
-        $this->getPosts()->load();
+//        parent::_prepareLayout();
+//        $pager = $this->getLayout()->createBlock(
+//            'page/html_pager',
+//            'mageplaza_betterblog.post.html.pager'
+//        )
+//            ->setCollection($this->getPosts());
+//        $this->setChild('pager', $pager);
+//        $this->getPosts()->load();
         return $this;
     }
 
@@ -73,4 +74,24 @@ class Mageplaza_BetterBlog_Block_Post_Recent extends Mage_Core_Block_Template
     {
         return $this->getChildHtml('pager');
     }
+
+    public function getRandomPost()
+    {
+        $posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->addAttributeToSelect('*');
+        $flag = 1;
+        $entityIds = array();
+//        $allPosts = $this->getPosts()->setPageSize(30);
+        foreach ($posts as $post) {
+//            array_push($entityIds, $post->getEntityId());
+            $entityIds[] = $post->getEntityId();
+        }
+        $randomId = array_rand($entityIds);
+        if ($flag == 1) {
+            Mage::app()->getResponse()->setRedirect(Mage::getUrl('blog/post/view', ['id' => $entityIds[$randomId]]));
+        }
+
+    }
+
 }

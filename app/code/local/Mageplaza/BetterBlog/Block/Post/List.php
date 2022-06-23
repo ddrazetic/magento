@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Post list block
  *
@@ -33,11 +34,12 @@ class Mageplaza_BetterBlog_Block_Post_List extends Mage_Core_Block_Template
     {
         parent::_construct();
         $posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
-                         ->setStoreId(Mage::app()->getStore()->getId())
-                         ->addAttributeToSelect('*')
-                         ->addAttributeToFilter('status', 1);
-        $posts->setOrder('created_at','desc');
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status', 1);
+        $posts->setOrder('created_at', 'desc');
         $this->setPosts($posts);
+//        $this->getPosts()->setPageSize(6);
     }
 
     /**
@@ -54,10 +56,29 @@ class Mageplaza_BetterBlog_Block_Post_List extends Mage_Core_Block_Template
             'page/html_pager',
             'mageplaza_betterblog.post.html.pager'
         )
-        ->setCollection($this->getPosts());
+            ->setCollection($this->getPosts());
         $this->setChild('pager', $pager);
         $this->getPosts()->load();
         return $this;
+    }
+
+    public function getRandomPost()
+    {
+        $posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->addAttributeToSelect('*');
+        $flag = 1;
+        $entityIds = array();
+//        $allPosts = $this->getPosts()->setPageSize(30);
+        foreach ($posts as $post) {
+//            array_push($entityIds, $post->getEntityId());
+            $entityIds[] = $post->getEntityId();
+        }
+        $randomId = array_rand($entityIds);
+        if ($flag == 1) {
+            Mage::app()->getResponse()->setRedirect(Mage::getUrl('blog/post/view', ['id' => $entityIds[$randomId]]));
+        }
+
     }
 
     /**

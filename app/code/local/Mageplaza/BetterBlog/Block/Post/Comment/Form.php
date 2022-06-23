@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Post comment form block
  *
@@ -33,7 +34,7 @@ class Mageplaza_BetterBlog_Block_Post_Comment_Form extends Mage_Core_Block_Templ
     {
         $customerSession = Mage::getSingleton('customer/session');
         parent::__construct();
-        $data =  Mage::getSingleton('customer/session')->getPostCommentFormData(true);
+        $data = Mage::getSingleton('customer/session')->getPostCommentFormData(true);
         $data = new Varien_Object($data);
         // add logged in customer name as nickname
         if (!$data->getName()) {
@@ -73,6 +74,14 @@ class Mageplaza_BetterBlog_Block_Post_Comment_Form extends Mage_Core_Block_Templ
     public function getPost()
     {
         return Mage::registry('current_post');
+    }
+
+    public function getCurrentCustomer()
+    {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return false;
+        }
+        return Mage::getSingleton('customer/session')->getCustomer();
     }
 
     /**

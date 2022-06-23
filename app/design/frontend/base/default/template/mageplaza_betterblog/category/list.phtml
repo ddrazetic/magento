@@ -1,0 +1,79 @@
+<h1>Categories:</h1>
+<?php
+$categories = $this->getCategories();
+//echo '<pre>', var_dump($this->getTreeModel()->getData()), '</pre>';
+
+?>
+
+<ul class="post-category-container post-category-container-max">
+    <?php foreach ($categories
+
+                   as $category): ?>
+        <li class=" post-category-max  ">
+            <a class="link-opacity"
+               href="<?php echo Mage::getUrl('blog/category/view', ['id' => $category->getEntityId()]); ?>"><h2
+                        class="post-category-header"><?= $category->getName() ?></h2></a>
+            <p> <?= $category->getDescription() ?></p>
+        </li>
+    <?php endforeach; ?>
+</ul>
+<h1>Subcategories:</h1>
+
+<ul id="treeId">
+    <?php $this->olLiTree($categories, 0); ?>
+</ul>
+
+<!--<div>-->
+<!--    --><?php //foreach ($categories
+//
+//                   as $category): ?>
+<!--        --><?php //echo $this->drawCategory($category); ?>
+<!--    --><?php //endforeach; ?>
+<!--</div>-->
+
+<script>
+    jQuery(document).ready(function () {
+        var tree = $(treeId);
+        // console.log('dffew')
+        if (tree) {
+            tree.addClassName('tree');
+            tree.select('ul').each(function (list) {
+                $(list).hide();
+            })
+            tree.select('li').each(function (item) {
+                var children = $(item).childElements().grep(new Selector('ul'));
+                // console.log(children)
+                if (children.length > 0) {
+                    var span = jQuery('<span/>').text('>').addClass('collapsed span-list-category ');
+                    jQuery(item).prepend(span);
+                    // var span = new Element('span').addClassName('collapsed');
+                    span.click(function (el) {
+                        if ($(this).hasClassName('collapsed')) {
+                            this.addClassName('expanded');
+                            this.removeClassName('collapsed');
+                            span.text('<');
+
+                            $(item).childElements().grep(new Selector('ul')).each(function (list) {
+                                $(list).show();
+                                $(list).addClassName('margin-left-list');
+                            });
+                        } else {
+                            this.removeClassName('expanded');
+                            this.addClassName('collapsed');
+                            span.text('>');
+
+                            $(item).childElements().grep(new Selector('ul')).each(function (list) {
+                                $(list).hide();
+                            });
+                        }
+                    });
+                    // $(item).insert({top: span});
+                } else {
+                    var span1 = jQuery('<span/>').text('>').addClass(' span-list-category-disabled ');
+                    jQuery(item).prepend(span1);
+                }
+            });
+        }
+        ;
+    });
+</script>

@@ -1,0 +1,118 @@
+<?php $numberOfComments = 0;
+$imageBaseUrl = $this->getUrl("skin/frontend/base/default/images") . "mageplaza_betterblog/";
+//echo $imageBaseUrl
+?>
+<?php
+$email = '';
+$firstname = '';
+$lastname = '';
+if ($this->getCurrentCustomer()) {
+
+    $email = $this->getCurrentCustomer()->getData('email');
+    $firstname = $this->getCurrentCustomer()->getData('firstname') . ' ';
+    $lastname = $this->getCurrentCustomer()->getData('lastname');
+}
+
+//echo $email . $firstname . $lastname;
+//echo '<pre>', var_dump($this->getCurrentCustomer()), '</pre>';
+?>
+<div class="post-form">
+    <div class="header-form bold-font">
+        <a class="active-header"><?= $numberOfComments ?>
+            Comments</a>
+        <a>Blog</a>
+        <div>
+            <img class="image-lock-form" src="<?= $imageBaseUrl . "1.png" ?>" alt="image"/>
+            <a>Disqus' Privacy Policy</a>
+        </div>
+        <div class="last-element-form">
+            <img class="image-lock-form" src="<?= $imageBaseUrl . "5.png" ?>" alt="image"/>
+            <a>Login</a>
+            <img class="image-lock-form" src="<?= $imageBaseUrl . "6.png" ?>" alt="image"/>
+        </div>
+    </div>
+    <div class="after-header-form bold-font">
+        <div>
+            <img class="image-lock-form" src="<?= $imageBaseUrl . "2.png" ?>" alt="image"/>
+            <p>Favorite</p>
+        </div>
+        <img class="image-tweet-form" src="<?= $imageBaseUrl . "3.png" ?>" alt="image"/>
+        <img class="image-tweet-form" src="<?= $imageBaseUrl . "4.png" ?>" alt="image"/>
+        <div class="last-element-form">
+            <p>Sort by Best</p>
+            <img class="image-lock-form" src="<?= $imageBaseUrl . "6.png" ?>" alt="image"/>
+        </div>
+    </div>
+    <div class="input-form">
+        <img class="image-profile-form" src="<?= $imageBaseUrl . "7.png" ?>" alt="image"/>
+        <div class="input-container">
+            <form class="container-text-area" method="post" action="<?php echo $this->getAction() ?>">
+                <input type="text" name="name" value="<?= $firstname . $lastname ?>" placeholder="name"/>
+                <input type="text" name="email" value="<?= $email ?>" placeholder="email"/>
+                <input type="text" name="title" placeholder="title"/>
+                <textarea class="text-area" name="comment" placeholder="Start the discussion..."></textarea>
+                <button class="button-send-comment" type="submit">send</button>
+                <div class="font-edit-container">
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "8.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "9.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "10.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "11.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "12.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "13.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "14.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "15.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "16.png" ?>" alt="image"/>
+                    <img class="image-lock-form" src="<?= $imageBaseUrl . "17.png" ?>" alt="image"/>
+                </div>
+            </form>
+            <div class="auth-container">
+                <div class="login-container bold-font">
+                    <p>LOG IN WITH</p>
+                    <div class="network-sites">
+                        <img class="image-network-form" src="<?= $imageBaseUrl . "18.png" ?>" alt="image"/>
+                        <img class="image-network-form" src="<?= $imageBaseUrl . "19.png" ?>" alt="image"/>
+                        <img class="image-network-form" src="<?= $imageBaseUrl . "20.png" ?>" alt="image"/>
+                        <img class="image-network-form" src="<?= $imageBaseUrl . "21.png" ?>" alt="image"/>
+                    </div>
+                </div>
+                <in class="register-container">
+                    <div class="display-flex bold-font">
+                        <p>OR SIGN UP WITH DISQUS</p>
+                        <img class="image-lock-form" src="<?= $imageBaseUrl . "22.png" ?>" alt="image"/>
+                    </div>
+                    <form>
+                        <input class="input-text-1" placeholder="Name" type="text">
+                        <input class="input-text-1" placeholder="Email" type="text">
+                        <input class="input-text-1" placeholder="Password" type="text">
+                        <div class="display-flex">
+                            <input class="input-checkbox-1" type="checkbox">
+                            <p>I agree to Disqus' <a class="privacy-checkbox-text">Terms of Service</a></p>
+                        </div>
+                        <div class="display-flex">
+                            <input class="input-checkbox-1" type="checkbox">
+                            <p>I agree to Disqus' processin of email and IP adress, and the use of cookies, to
+                                facilitate my authentication and posting of comments, explained further in the
+                                <a class="privacy-checkbox-text">Privacy Policy</a>
+                            </p>
+                        </div>
+                        <div class="display-flex">
+                            <input class="input-checkbox-1" type="checkbox">
+                            <p>I agree to additional processing of my information, including first and third party
+                                cookies, for personalized content and advertising as outlined in our
+                                <a class="privacy-checkbox-text">Data Sharing Policy</a>
+                            </p>
+                        </div>
+
+                        <button class="button-submit-form">
+                            <img class="image-submit-form"
+                                 src="<?= $imageBaseUrl . "23.png" ?>" alt="image"/>
+                        </button>
+
+                    </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

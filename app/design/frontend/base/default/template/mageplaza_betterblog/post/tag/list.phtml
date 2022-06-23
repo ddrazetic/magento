@@ -1,0 +1,26 @@
+<div class="gray-line"></div>
+<h2>Tags:</h2>
+
+<?php
+$entityId = $this->getCurrentPost()->getEntityId();
+//echo '<pre>', var_dump($this->getCurrentPost()->getData()), '</pre>';
+
+$tags = $this->getTags()->addPostFilter($entityId);
+//echo '<pre>', var_dump($tags), '</pre>';
+//echo '<pre>', var_dump($this->getTags()->addPostFilter($entityId)->getData()), '</pre>';
+?>
+<div>
+    <ul class="tags-list">
+        <?php foreach ($tags as $tag): ?>
+            <li>
+
+                <a href="<?php echo Mage::getUrl('blog/tag/view', ['id' => $tag->getId()]); ?>">
+                    <h2 class="name-tag"> <?= $tag->getName() ?></h2>
+                </a>
+                <p class="description-tag"><?= substr($tag->getDescription(), 0, 150); ?>...</p>
+
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+

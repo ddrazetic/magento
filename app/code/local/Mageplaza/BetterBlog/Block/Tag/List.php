@@ -1,19 +1,20 @@
 <?php
 /**
  * Mageplaza_BetterBlog extension
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the MIT License
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
- * 
+ *
  * @category       Mageplaza
  * @package        Mageplaza_BetterBlog
  * @copyright      Copyright (c) 2015
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Tag list block
  *
@@ -33,9 +34,10 @@ class Mageplaza_BetterBlog_Block_Tag_List extends Mage_Core_Block_Template
     {
         parent::_construct();
         $tags = Mage::getResourceModel('mageplaza_betterblog/tag_collection')
-                         ->addStoreFilter(Mage::app()->getStore())
-                         ->addFieldToFilter('status', 1);
+            ->addStoreFilter(Mage::app()->getStore())
+            ->addFieldToFilter('status', 1);
         $tags->setOrder('name', 'asc');
+
         $this->setTags($tags);
     }
 
@@ -53,7 +55,7 @@ class Mageplaza_BetterBlog_Block_Tag_List extends Mage_Core_Block_Template
             'page/html_pager',
             'mageplaza_betterblog.tag.html.pager'
         )
-        ->setCollection($this->getTags());
+            ->setCollection($this->getTags());
         $this->setChild('pager', $pager);
         $this->getTags()->load();
         return $this;

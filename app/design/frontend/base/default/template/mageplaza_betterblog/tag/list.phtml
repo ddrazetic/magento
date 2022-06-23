@@ -1,0 +1,21 @@
+<h1>Tags</h1>
+<?php
+$allTags = $this->getTags();
+?>
+
+<ul class="tags-list">
+    <?php foreach ($allTags as $tag): ?>
+        <li>
+
+            <a href="<?php echo Mage::getUrl('blog/tag/view', ['id' => $tag->getId()]); ?>">
+                <h2 class="name-tag"> <?= $tag->getName() ?></h2>
+            </a>
+            <p class="description-tag"><?= $tag->getDescription() ?></p>
+
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<?php
+//echo '<pre>', var_dump($allTags->getData()), '</pre>';
+?>

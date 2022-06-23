@@ -1,0 +1,53 @@
+<?php
+//    $allPosts = $this->getPosts()->getData();
+$blsa = $this->getPosts();
+//echo 'number: ' . count($blsa);
+//echo '<pre>', var_dump($blsa->getData()->getLength()), '</pre>';
+
+$imageBaseUrl = $this->getUrl("media/post/image");
+?>
+<h1>5 most recent posts:</h1>
+
+<form method="post">
+    <input class="lucky-button" type="submit" name="test" id="test" value="I'm feeling lucky!"/><br/>
+</form>
+<ul class="most-recent-posts">
+    <?php
+    if (array_key_exists('test', $_POST)) {
+        $this->getRandomPost();
+    }
+
+    ?>
+    <?php foreach ($blsa as $post): ?>
+        <li>
+            <h2>
+                <a href="<?php echo Mage::getUrl('blog/post/view', ['id' => $post->getEntityId()]); ?>"><?= $post->getPostTitle(); ?></a>
+            </h2>
+            <div class="content-post">
+                <div class="image-container-post">
+                    <a href="<?php echo Mage::getUrl('blog/post/view', ['id' => $post->getEntityId()]); ?>">
+                        <?php if ($post->getImage()) : ?>
+                            <img class="image-post" src="<?= $imageBaseUrl . $post->getImage() ?>"
+                                 alt="post image"/>
+                        <?php else: ?>
+                            <img class="image-post" src="<?= $imageBaseUrl . "no_image/no-image.png" ?>"
+                                 alt="no image"/>
+                        <?php endif; ?>
+                    </a>
+                </div>
+                <p><strong class="strong-post">Entity id: </strong> <?= $post->getEntityId(); ?></p>
+                <p><strong class="strong-post">URL key: </strong> <?= $post->getUrlKey(); ?></p>
+                <p><strong class="strong-post">Description: </strong><?= substr($post->getPostExcerpt(), 0, 70); ?>
+                    ...
+                </p>
+                <p><strong class="strong-post">Content: </strong><?= substr($post->getPostContent(), 0, 70); ?>...
+                </p>
+                <p><strong class="strong-post">Created at: </strong><?= $post->getCreatedAt(); ?></p>
+            </div>
+
+        </li>
+    <?php endforeach; ?>
+    <li></li>
+</ul>
+
+<?php //echo '<pre>', var_dump($this->getPosts()), '</pre>'; ?>
